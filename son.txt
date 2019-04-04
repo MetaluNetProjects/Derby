@@ -1,0 +1,10 @@
+types :
+
+brouhaha
+
+exclamations
+
+hourras
+
+sifflets
+
