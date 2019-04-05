@@ -82,9 +82,11 @@ void setup(void) {
 #endif
 	
 	
-//#define HW_PARAMS	
-	DCMOTOR(A).Setting.PosWindow = 1;
+	DCMOTOR(A).Setting.onlyPositive = 1;
+	DCMOTOR(A).Setting.PosWindow = 0;
 	DCMOTOR(A).Setting.PwmMin = 150;
+	DCMOTOR(A).Setting.PosErrorGain = 9;
+//#define HW_PARAMS	
 #ifdef HW_PARAMS
 	DCMOTOR(A).Setting.PosWindow = 6;
 	DCMOTOR(A).Setting.PwmMin = 50;
@@ -155,22 +157,26 @@ void testTransEnds()
 
 void sendMotorState()
 {
-	static unsigned char buf[10] = { 'B', 10};
+	static unsigned char buf[12] = { 'B', 10};
 	static int ramppos;
+	static unsigned len;
 	
-	buf[2] = (unsigned char)DCMOTOR_GETPOS(A);
-	buf[3] = digitalRead(TRANS_LOSW) == 0;
-	buf[4] = digitalRead(TRANS_HISW) == 0;
-	buf[5] = DCMOTOR(A).Vars.PWMConsign >> 8;
-	buf[6] = DCMOTOR(A).Vars.PWMConsign & 255;
+	len = 2;
+	buf[len++] = DCMOTOR_GETPOS(A) >> 8;
+	buf[len++] = DCMOTOR_GETPOS(A) & 255;
+	buf[len++] = digitalRead(TRANS_LOSW) == 0;
+	buf[len++] = digitalRead(TRANS_HISW) == 0;
+	buf[len++] = DCMOTOR(A).Vars.PWMConsign >> 8;
+	buf[len++] = DCMOTOR(A).Vars.PWMConsign & 255;
 	ramppos = (int)rampGetPos(&(DCMOTOR(A).PosRamp));
-	buf[7] = ramppos >> 8;
-	buf[8] = ramppos & 255;
-	buf[9] = '\n';
-	fraiseSend(buf,10);
+	buf[len++] = ramppos >> 8;
+	buf[len++] = ramppos & 255;
+	buf[len++] = '\n';
+	fraiseSend(buf,len);
 }
 
 void loop() {
+	static unsigned char loopCount;
 // ---------- Main loop ------------
 	fraiseService();	// listen to Fraise events
 	analogService();	// analog management routine
@@ -184,7 +190,11 @@ void loop() {
 #ifdef USE_MOTORS
 		testTransEnds();
 		DCMOTOR_COMPUTE_SINGLE(A,ASYM);
-		sendMotorState();
+		
+		if(loopCount++ > 10) {
+			sendMotorState();
+			loopCount = 0;
+		}
 #endif
 	}
 }

@@ -8,3 +8,29 @@ hourras
 
 sifflets
 
+----------------
+
+foule_passive
+	1.wav 2.wav 3.wav
+
+foule_active
+	1.wav 2.wav ...
+
+start
+	1.wav 2.wav
+
+bagarre
+	1.wav ...
+
+depassement
+	1.wav ...
+
+reprise
+
+premier
+
+deuxieme
+
+troisieme
+
+evenement

@@ -8,7 +8,7 @@
 #define RAMP_MAXERROR 1 //  
 
 // rotation motor:
-#define MOTA_END KZ1
+#define MOTA_END K2
 #define MOTA_ENDLEVEL 0
 #define MOTA_A K1
 #define MOTA_B KZ1

@@ -67,17 +67,20 @@ void pulseCountsProcess()
 void pulseCountsSend()
 {
 	static unsigned int sum, oldSum;
-	static unsigned char buf[10] = {'B', '200'};
+	static unsigned char len, buf[10] = {'B', 10};
 	
 	sum = pulseCount1 + pulseCount2 + pulseCount3 + pulseCount4 + pulseCount5;
 	if(sum != oldSum) {
 		oldSum = sum;
-		buf[2] = pulseCount1;
-		buf[3] = pulseCount2;
-		buf[4] = pulseCount3;
-		buf[5] = pulseCount4;
-		buf[6] = pulseCount5;
-		buf[7] = pulseCount6;
+		len = 2;
+		buf[len++] = pulseCount1;
+		buf[len++] = pulseCount2;
+		buf[len++] = pulseCount3;
+		buf[len++] = pulseCount4;
+		buf[len++] = pulseCount5;
+		buf[len++] = pulseCount6;
+		buf[len++] = '\n';
+		fraiseSend(buf,len);
 	}
 }
 
