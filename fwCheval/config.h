@@ -9,13 +9,13 @@
 
 // rotation motor:
 #define MOTA_END K2
-#define MOTA_ENDLEVEL 0
+#define MOTA_ENDLEVEL 1
 #define MOTA_A K1
 #define MOTA_B KZ1
 
 #define TRANS_LOSW K2
 #define TRANS_HISW K3
-#define TRANS_SWLEVEL 0
+#define TRANS_SWLEVEL 1
 
 #define SERVO1 K4
 
