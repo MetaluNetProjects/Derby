@@ -14,7 +14,7 @@
 #X obj 243 158 pack 0 \$2;
 #X obj 243 177 s notelength-\$1;
 #X text 306 156 notelength-BANKID[0]=num_samples;
-#X obj 223 137 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+#X obj 209 135 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
 -1 -1;
 #X obj 24 468 s noteaccord-\$1;
 #X obj 51 442 s noteaccord-\$1;
@@ -120,6 +120,7 @@ to NOTEBANK-DATASDIR [volume [pitch]], f 103;
 #X connect 54 0 52 0;
 #X connect 55 0 56 0;
 #X connect 57 0 8 0;
+#X connect 57 0 13 0;
 #X connect 59 0 60 1;
 #X connect 60 0 17 0;
 #X connect 63 0 64 0;
