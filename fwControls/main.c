@@ -64,6 +64,7 @@ void loop() {
 // ---------- Main loop ------------
 	fraiseService();	// listen to Fraise events
 	analogService();	// analog management routine
+	switchService();	// switch management routine
 
 	if(delayFinished(mainDelay)) // when mainDelay triggers :
 	{
