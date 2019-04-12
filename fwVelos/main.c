@@ -31,6 +31,10 @@ void setup(void) {
 	digitalSet(MCEN);
 	pinModeDigitalOut(MDEN); 	// enable D motor driver
 	digitalSet(MDEN);
+	pinModeDigitalOut(MBEN); 	// enable B motor driver
+	digitalSet(MBEN);
+	pinModeDigitalOut(MAEN); 	// enable A motor driver
+	digitalSet(MAEN);
 
 	pinModeDigitalOut(RING1);
 	digitalClear(RING1);
@@ -69,8 +73,9 @@ void pulseCountsSend()
 	static unsigned int sum, oldSum;
 	static unsigned char len, buf[10] = {'B', 10};
 	
-	sum = pulseCount1 + pulseCount2 + pulseCount3 + pulseCount4 + pulseCount5;
-	if(sum != oldSum) {
+	sum = pulseCount1 + pulseCount2 + pulseCount3 + 
+		pulseCount4 + pulseCount5 + pulseCount6;
+	if(0 || (sum != oldSum)) {
 		oldSum = sum;
 		len = 2;
 		buf[len++] = pulseCount1;
