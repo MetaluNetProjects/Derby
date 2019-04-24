@@ -10,7 +10,9 @@
 #include <softpwm.h>
 
 t_delay mainDelay;
-unsigned char pulseCount1, pulseCount2, pulseCount3, pulseCount4, pulseCount5, pulseCount6;
+unsigned char pulseCount[6];
+unsigned char pinState[6];
+unsigned char pinDebounceCount[6];
 
 void setup(void) {	
 //----------- Setup ----------------
@@ -53,11 +55,24 @@ void setup(void) {
 
 #define INCPULSE(num) do {\
 	ptmp = digitalRead(PULSE##num); if(p##num != ptmp) {\
-		p##num = ptmp; if(ptmp == 1) pulseCount##num ++;}\
+		p##num = ptmp; if(ptmp == 1) pulseCount##num ++; } \
 } while(0)
-
+unsigned char readPulsePin(unsigned char num)
+{
+	switch(num) {
+		case 0: return digitalRead(PULSE1); break; 
+		case 1: return digitalRead(PULSE2); break; 
+		case 2: return digitalRead(PULSE3); break; 
+		case 3: return digitalRead(PULSE4); break; 
+		case 4: return digitalRead(PULSE5); break; 
+		case 5: return digitalRead(PULSE6); break;
+		default: return 0;
+	}
+}
+ 
 void pulseCountsProcess()
 {
+/*	static unsigned char ptmp, p1,p2,p3,p4,p5,p6;
 	static unsigned char ptmp, p1,p2,p3,p4,p5,p6;
 
 	INCPULSE(1);
@@ -66,6 +81,20 @@ void pulseCountsProcess()
 	INCPULSE(4);
 	INCPULSE(5);
 	INCPULSE(6);
+*/
+	unsigned char i, ptmp;
+#define DEBOUNCE_MAX 100
+	for(i = 0 ; i < 6 ; i++) {
+		if(readPulsePin(i)) {
+			if(pinDebounceCount[i] < DEBOUNCE_MAX) pinDebounceCount[i]++;
+		} else {
+			if(pinDebounceCount[i] > 0) pinDebounceCount[i]--;
+		}
+		if(pinDebounceCount[i] > DEBOUNCE_MAX/2) {
+			if(pinState[i] == 0) pulseCount[i]++;
+			pinState[i] = 1;
+		} else pinState[i] = 0;
+	}	
 }
 
 void pulseCountsSend()
@@ -73,17 +102,17 @@ void pulseCountsSend()
 	static unsigned int sum, oldSum;
 	static unsigned char len, buf[10] = {'B', 10};
 	
-	sum = pulseCount1 + pulseCount2 + pulseCount3 + 
-		pulseCount4 + pulseCount5 + pulseCount6;
+	sum = pulseCount[0] + pulseCount[1] + pulseCount[2] + 
+		pulseCount[3] + pulseCount[4] + pulseCount[5];
 	if(0 || (sum != oldSum)) {
 		oldSum = sum;
 		len = 2;
-		buf[len++] = pulseCount1;
-		buf[len++] = pulseCount2;
-		buf[len++] = pulseCount3;
-		buf[len++] = pulseCount4;
-		buf[len++] = pulseCount5;
-		buf[len++] = pulseCount6;
+		buf[len++] = pulseCount[0];
+		buf[len++] = pulseCount[1];
+		buf[len++] = pulseCount[2];
+		buf[len++] = pulseCount[3];
+		buf[len++] = pulseCount[4];
+		buf[len++] = pulseCount[5];
 		buf[len++] = '\n';
 		fraiseSend(buf,len);
 	}
@@ -135,6 +164,8 @@ void fraiseReceiveChar() // receive text
 void fraiseReceive() // receive raw bytes
 {
 	unsigned char c=fraiseGetChar();
-	if(c==50) softpwmReceive(); // if first byte is 50, then call softpwm receive function.
+	if(c == 50) softpwmReceive(); // if first byte is 50, then call softpwm receive function.
+	else if (c == 51) digitalWrite(RING1, fraiseGetChar() != 0);
+	else if(c == 52) digitalWrite(RING2, fraiseGetChar() != 0);
 }
 
