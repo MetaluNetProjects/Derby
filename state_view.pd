@@ -1,20 +1,20 @@
-#N canvas 1 81 450 452 10;
+#N canvas 101 86 450 452 10;
 #X obj 101 101 cnv 20 180 30 empty \$0-canvas Debut 5 12 0 18 -233017
 -1 0;
-#X obj 107 238 r STATE;
-#X obj 107 259 sel \$1;
-#X msg 107 280 1;
-#X obj 107 301 change;
-#X msg 140 280 0;
-#X obj 107 335 sel 0 1;
-#X obj 107 398 s \$0-canvas;
-#X msg 107 356 10;
-#X msg 142 356 15;
-#X obj 292 255 loadbang;
-#X msg 107 377 color \$1 \$1 22;
-#X obj 292 276 symbol \$1;
-#X msg 292 297 label \$1;
-#X obj 359 252 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+#X obj 99 218 r STATE;
+#X obj 99 239 sel \$1;
+#X msg 99 260 1;
+#X obj 99 281 change;
+#X msg 132 260 0;
+#X obj 99 315 sel 0 1;
+#X obj 99 378 s \$0-canvas;
+#X msg 99 336 10;
+#X msg 134 336 15;
+#X obj 205 236 loadbang;
+#X msg 99 357 color \$1 \$1 22;
+#X obj 205 257 symbol \$1;
+#X msg 205 278 label \$1;
+#X obj 272 233 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
 -1 -1;
 #X connect 1 0 2 0;
 #X connect 2 0 3 0;
