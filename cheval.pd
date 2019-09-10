@@ -1,9 +1,9 @@
 #N canvas 405 86 764 682 10;
 #X obj 16 116 fruit/fruit 1 cheval\$1 \$2 fwCheval;
 #X obj 24 57 tgl 15 0 cheval\$1-connected cheval\$1-connected connecté
-17 7 0 10 -262144 -1 -1 1 1;
+17 7 0 10 -262144 -1 -1 0 1;
 #X text 357 20 diametre poulie 90mm : circ 283mm;
-#X obj 358 125 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 1
+#X obj 358 125 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
 1;
 #X obj 358 81 fruit/receive cheval\$1;
 #X obj 358 145 s cheval\$1-connected;
@@ -19,7 +19,7 @@
 #X obj 258 332 fruit/receive cheval\$1;
 #X obj 258 353 route 10;
 #X obj 153 64 nbx 5 14 -1e+37 1e+37 0 0 cheval\$1-pos cheval\$1-pos
-position 0 -6 0 10 -262144 -1 -1 10 256;
+position 0 -6 0 10 -262144 -1 -1 0 256;
 #X obj 315 456 s cheval\$1-lowswitch;
 #X obj 365 439 s cheval\$1-highswitch;
 #X obj 19 514 hsl 128 15 0 1 0 0 empty empty empty -2 -8 0 10 -262144
@@ -38,12 +38,12 @@ position 0 -6 0 10 -262144 -1 -1 10 256;
 #X obj 73 639 i;
 #X msg 145 678 WRITE;
 #X text 143 664 eeprom;
-#X obj 15 399 s cheval\$1-motor-posPid-params;
-#X obj 15 355 s cheval\$1-motor-ramp-params;
+#X obj 14 469 s cheval\$1-motor-posPid-params;
+#X obj 14 420 s cheval\$1-motor-ramp-params;
 #X text 48 10 cheval num fruit-id;
 #X obj 16 494 r cheval\$1-LampeDépart;
 #X obj 153 92 nbx 5 14 -1e+37 1e+37 0 0 cheval\$1-dest cheval\$1-dest
-destination 0 -6 0 10 -262144 -1 -1 10.1829 256;
+destination 0 -6 0 10 -262144 -1 -1 0 256;
 #X obj 258 473 s cheval\$1-pos;
 #X obj 417 666 r cheval\$1-dest;
 #X obj 454 609 s cheval\$1-dest;
@@ -53,7 +53,7 @@ destination 0 -6 0 10 -262144 -1 -1 10.1829 256;
 #X obj 435 419 s cheval\$1-pwm;
 #X obj 525 420 s cheval\$1-ramppos;
 #X obj 543 123 nbx 5 14 -1e+37 1e+37 0 0 cheval\$1-ramppos cheval\$1-ramppos
-ramp_position 0 -6 0 10 -262144 -1 -1 10 256;
+ramp_position 0 -6 0 10 -262144 -1 -1 0 256;
 #X obj 96 64 nbx 5 14 -1e+37 1e+37 0 0 cheval\$1-pwm cheval\$1-pwm
 PWM 0 -6 0 10 -262144 -1 -1 0 256;
 #N canvas 269 454 303 236 16bits 0;
@@ -89,14 +89,14 @@ PWM 0 -6 0 10 -262144 -1 -1 0 256;
 #X connect 6 0 2 0;
 #X restore 525 400 pd 16bits;
 #X obj 225 565 hsl 128 15 -1023 1023 0 0 empty empty empty -2 -8 0
-10 -262144 -1 -1 0 1;
+10 -262144 -1 -1 6350 1;
 #X msg 224 541 0;
 #X msg 312 640 c 20 c 0 i \$1;
 #X floatatom 363 571 8 35 195 2 servo - -;
 #X obj 363 591 * 100;
 #X floatatom 363 611 8 0 0 0 - - -;
 #X obj 86 95 tgl 15 0 cheval\$1-actif cheval\$1-actif actif -5 -6 0
-10 -204786 -1 -1 1 1;
+10 -204786 -1 -1 0 1;
 #X obj 250 684 r ENABLE_BIKES;
 #X obj 250 705 s cheval\$1-actif;
 #X text 361 34 16 pas/tour - piste 4m50;
@@ -122,9 +122,9 @@ PWM 0 -6 0 10 -262144 -1 -1 0 256;
 #X obj 419 331 r cheval\$1-connected;
 #X obj 258 541 r cheval\$1-setpwm;
 #X obj 112 93 nbx 3 14 -1e+37 1e+37 0 0 cheval\$1-test cheval\$1-test
-test 0 -6 0 10 -262144 -1 -1 177 256;
+test 0 -6 0 10 -262144 -1 -1 0 256;
 #X obj 135 42 hsl 80 10 0 1 0 0 cheval\$1-servo cheval\$1-servo servo
-20 5 0 10 -262144 -1 -1 7473 1;
+20 5 0 10 -262144 -1 -1 0 1;
 #X obj 466 465 r cheval\$1-servo;
 #X obj 417 533 maxlib/scale 0 1 3500 19500;
 #X floatatom 441 567 8 0 0 0 - - -;
@@ -147,7 +147,7 @@ test 0 -6 0 10 -262144 -1 -1 177 256;
 #X msg 155 164 1;
 #X obj 253 132 sel 1;
 #X msg 253 153 0;
-#X obj 267 110 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 1
+#X obj 267 110 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
 1;
 #X obj 267 88 route present;
 #X obj 267 65 fruit/receive velos;
@@ -402,7 +402,7 @@ test 0 -6 0 10 -262144 -1 -1 177 256;
 #X connect 46 0 44 0;
 #X connect 47 0 8 0;
 #X restore 587 46 pd AUTOMAT-servo;
-#N canvas 103 176 909 584 AUTOMAT_light 1;
+#N canvas 103 176 909 584 AUTOMAT_light 0;
 #X obj 40 94 sel Parade, f 19;
 #X obj 296 56 r STATE;
 #X obj 296 83 sel PausePreCourse Course;
@@ -763,8 +763,11 @@ test 0 -6 0 10 -262144 -1 -1 177 256;
 -262144 -1 -1 0 1;
 #X obj 573 671 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
 -1 -1;
-#X msg 15 332 speed 35 \, accel 300 \, decel 300;
-#X msg 15 377 gainP 200 \, gainI 0 \, gainD 0 \, max 1023;
+#X msg 14 447 gainP 200 \, gainI 0 \, gainD 0 \, max 1023;
+#X msg 14 397 speed 70 \, accel 300 \, decel 300;
+#X obj 14 333 r cheval\$1-connected;
+#X obj 14 354 sel 1;
+#X obj 14 375 del 100;
 #X connect 3 0 5 0;
 #X connect 4 0 12 0;
 #X connect 9 0 39 0;
@@ -827,6 +830,9 @@ test 0 -6 0 10 -262144 -1 -1 177 256;
 #X connect 86 0 89 1;
 #X connect 92 0 91 0;
 #X connect 93 0 92 0;
-#X connect 95 0 33 0;
-#X connect 96 0 32 0;
+#X connect 95 0 32 0;
+#X connect 96 0 33 0;
+#X connect 97 0 98 0;
+#X connect 98 0 99 0;
+#X connect 99 0 96 0;
 #X coords 0 -1 1 1 240 70 1 20 40;
